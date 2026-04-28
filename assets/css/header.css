@@ -1,0 +1,367 @@
+/* =============================================================
+   Genzee Jewels — header.css
+   Phase 2: Announcement bar, logo mark, primary nav,
+   icon buttons, cart badge, mobile hamburger drawer.
+   ============================================================= */
+
+/* ── Announcement bar ─────────────────────────────────────── */
+.announcement-bar {
+  background-color: var(--color-ink);
+  color: var(--color-white);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  overflow: hidden;
+  height: 36px;
+  display: flex;
+  align-items: center;
+}
+
+.announcement-bar__track {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  white-space: nowrap;
+  flex-shrink: 0;
+  min-width: max-content;
+  /* Override base.css marquee-track duration for tighter feel */
+  animation: marquee 22s linear infinite;
+}
+
+.announcement-bar__item strong {
+  color: var(--color-butter);
+}
+
+.announcement-bar__sep {
+  color: rgba(255, 255, 255, 0.3);
+  flex-shrink: 0;
+  font-size: 10px;
+}
+
+/* ── Outer header wrapper ─────────────────────────────────── */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--color-white);
+  box-shadow: 0 1px 0 var(--color-line), 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.site-header__main {
+  border-bottom: 1.5px solid var(--color-line);
+}
+
+/* ── Inner flex row ───────────────────────────────────────── */
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-5);
+  min-height: 64px;
+}
+
+/* ── Logo / brand ─────────────────────────────────────────── */
+.site-header__brand {
+  flex-shrink: 0;
+}
+
+.site-header__logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.site-header__logo:hover .site-header__logo-dot {
+  color: var(--color-hot-deep);
+}
+
+/* Circular "g" mark */
+.site-header__logo-mark {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--r-pill);
+  background-color: var(--color-ink);
+  color: var(--color-butter);
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 900;
+  font-style: italic;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+/* "genzee." wordmark */
+.site-header__logo-wordmark {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  color: var(--color-ink);
+  line-height: 1;
+}
+
+.site-header__logo-dot {
+  color: var(--color-hot);
+  transition: color var(--transition-fast);
+}
+
+/* Custom logo image sizing */
+.site-header__brand .custom-logo {
+  height: 40px;
+  width: auto;
+}
+
+/* ── Primary navigation ───────────────────────────────────── */
+.site-header__nav {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.nav-menu--primary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-menu--primary > .menu-item > a {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color var(--transition-fast);
+}
+
+.nav-menu--primary > .menu-item > a:hover,
+.nav-menu--primary > .current-menu-item > a,
+.nav-menu--primary > .current-menu-ancestor > a {
+  color: var(--color-hot);
+}
+
+/* HOT badge on "Under ₹299" nav item */
+.nav-menu--primary > .menu-item--hot {
+  position: relative;
+}
+
+.nav-menu--primary > .menu-item--hot > a {
+  position: relative;
+}
+
+.nav-menu--primary > .menu-item--hot > a::after {
+  content: 'HOT';
+  position: absolute;
+  top: -10px;
+  right: -24px;
+  background-color: var(--color-butter);
+  color: var(--color-ink);
+  font-size: 8px;
+  font-weight: 900;
+  padding: 2px 5px;
+  border-radius: 4px;
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+  pointer-events: none;
+}
+
+/* ── Right action icons ───────────────────────────────────── */
+.site-header__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  flex-shrink: 0;
+}
+
+.site-header__action-btn {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--r-sm);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--color-ink);
+  text-decoration: none;
+  position: relative;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.site-header__action-btn:hover {
+  background-color: var(--color-cream);
+  color: var(--color-hot);
+}
+
+.site-header__action-btn:focus-visible {
+  outline: 3px solid var(--color-hot);
+  outline-offset: 2px;
+}
+
+/* Cart count badge */
+.site-header__cart-badge {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: var(--r-pill);
+  background-color: var(--color-hot);
+  color: var(--color-white);
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 900;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.site-header__cart-badge.is-empty {
+  display: none;
+}
+
+/* ── Mobile hamburger toggle ──────────────────────────────── */
+.site-header__menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  padding: var(--space-2);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: var(--r-sm);
+}
+
+.site-header__menu-toggle:focus-visible {
+  outline: 3px solid var(--color-hot);
+  outline-offset: 2px;
+}
+
+.menu-toggle__bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background-color: var(--color-ink);
+  border-radius: 2px;
+  transition: transform var(--transition-base), opacity var(--transition-base);
+  transform-origin: center;
+}
+
+/* Hamburger → X when nav is open */
+.site-header__menu-toggle[aria-expanded="true"] .menu-toggle__bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.site-header__menu-toggle[aria-expanded="true"] .menu-toggle__bar:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.site-header__menu-toggle[aria-expanded="true"] .menu-toggle__bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ── Mobile / tablet: < 1200px ───────────────────────────── */
+@media (max-width: 1199px) {
+
+  /* Show hamburger */
+  .site-header__menu-toggle {
+    display: flex;
+  }
+
+  /* Hide desktop-only icons */
+  .site-header__search,
+  .site-header__account,
+  .site-header__wishlist {
+    display: none;
+  }
+
+  /* Nav hidden by default; opens as full-width dropdown */
+  .site-header__nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: var(--color-white);
+    border-top: 1px solid var(--color-line);
+    border-bottom: 2px solid var(--color-line);
+    padding: var(--space-2) 0 var(--space-4);
+    z-index: 99;
+  }
+
+  .site-header__nav.is-open {
+    display: block;
+  }
+
+  .nav-menu--primary {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 0;
+  }
+
+  .nav-menu--primary > .menu-item > a {
+    display: block;
+    padding: var(--space-3) var(--container-pad);
+    border-bottom: 1px solid var(--color-line-soft);
+    font-size: var(--text-sm);
+    letter-spacing: 0.04em;
+  }
+
+  .nav-menu--primary > .menu-item:last-child > a {
+    border-bottom: none;
+  }
+
+  /* HOT badge repositioned to right side on mobile */
+  .nav-menu--primary > .menu-item--hot > a::after {
+    top: 50%;
+    right: var(--container-pad);
+    transform: translateY(-50%);
+  }
+}
+
+/* ── Desktop: >= 1200px ───────────────────────────────────── */
+@media (min-width: 1200px) {
+
+  .site-header__menu-toggle {
+    display: none;
+  }
+
+  .site-header__actions {
+    gap: var(--space-1);
+  }
+}
+
+/* ── Large desktop: >= 1280px ────────────────────────────── */
+@media (min-width: 1280px) {
+
+  .site-header__inner {
+    min-height: 72px;
+    gap: var(--space-8);
+  }
+
+  .nav-menu--primary {
+    gap: var(--space-8);
+  }
+
+  .site-header__logo-wordmark {
+    font-size: 24px;
+  }
+}

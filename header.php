@@ -1,0 +1,220 @@
+<?php
+/**
+ * Site header template.
+ * Included at the top of every template via get_header().
+ *
+ * @package genzee-jewels
+ */
+
+// Resolve cart count and URLs safely before HTML output.
+$genzee_cart_count  = 0;
+$genzee_cart_url    = home_url( '/cart/' );
+$genzee_account_url = home_url( '/my-account/' );
+
+if ( class_exists( 'WooCommerce' ) ) {
+	if ( function_exists( 'WC' ) && WC()->cart ) {
+		$genzee_cart_count = (int) WC()->cart->get_cart_contents_count();
+	}
+	if ( function_exists( 'wc_get_cart_url' ) ) {
+		$genzee_cart_url = wc_get_cart_url();
+	}
+	if ( function_exists( 'wc_get_page_id' ) ) {
+		$account_page_id = wc_get_page_id( 'myaccount' );
+		if ( $account_page_id > 0 ) {
+			$genzee_account_url = get_permalink( $account_page_id );
+		}
+	}
+}
+?><!DOCTYPE html>
+<html <?php language_attributes(); ?>>
+<head>
+	<meta charset="<?php bloginfo( 'charset' ); ?>">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="profile" href="https://gmpg.org/xfn/11">
+	<?php wp_head(); ?>
+</head>
+<body <?php body_class(); ?>>
+<?php wp_body_open(); ?>
+
+<a class="skip-link screen-reader-text" href="#main">
+	<?php esc_html_e( 'Skip to content', 'genzee-jewels' ); ?>
+</a>
+
+<header id="site-header" class="site-header" role="banner">
+
+	<!-- Announcement bar -->
+	<div
+		class="announcement-bar"
+		role="region"
+		aria-label="<?php esc_attr_e( 'Site announcements', 'genzee-jewels' ); ?>"
+	>
+		<div class="announcement-bar__track" aria-hidden="true">
+			<?php
+			$announcements = array(
+				'⚡ FLAT 50% OFF SITEWIDE &mdash; CODE: <strong>GENZ50</strong>',
+				'🚚 FREE SHIPPING OVER ₹499',
+				'💝 BUY 2 GET 1 FREE ON ALL SETS',
+				'✨ COD AVAILABLE',
+			);
+			// Render twice for seamless infinite marquee loop.
+			for ( $i = 0; $i < 2; $i++ ) :
+				foreach ( $announcements as $msg ) :
+			?>
+				<span class="announcement-bar__item">
+					<?php echo wp_kses( $msg, array( 'strong' => array() ) ); ?>
+				</span>
+				<span class="announcement-bar__sep" aria-hidden="true">&bull;</span>
+			<?php
+				endforeach;
+			endfor;
+			?>
+		</div>
+		<p class="screen-reader-text">
+			<?php esc_html_e( 'Flat 50% off sitewide with code GENZ50. Free shipping over ₹499. Buy 2 get 1 free on all sets. Cash on delivery available.', 'genzee-jewels' ); ?>
+		</p>
+	</div>
+
+	<!-- Main header row -->
+	<div class="site-header__main">
+		<div class="container site-header__inner">
+
+			<!-- Brand / logo -->
+			<div class="site-header__brand">
+				<?php if ( has_custom_logo() ) : ?>
+					<?php the_custom_logo(); ?>
+				<?php else : ?>
+					<a
+						href="<?php echo esc_url( home_url( '/' ) ); ?>"
+						class="site-header__logo"
+						rel="home"
+						aria-label="<?php esc_attr_e( 'Genzee Jewels — Home', 'genzee-jewels' ); ?>"
+					>
+						<span class="site-header__logo-mark" aria-hidden="true">g</span>
+						<span class="site-header__logo-wordmark">
+							genzee<span class="site-header__logo-dot" aria-hidden="true">.</span>
+						</span>
+					</a>
+				<?php endif; ?>
+			</div>
+
+			<!-- Primary navigation (desktop: always visible; mobile: toggleable) -->
+			<nav
+				id="primary-navigation"
+				class="site-header__nav"
+				aria-label="<?php esc_attr_e( 'Primary navigation', 'genzee-jewels' ); ?>"
+			>
+				<?php
+				if ( has_nav_menu( 'primary' ) ) {
+					wp_nav_menu( array(
+						'theme_location' => 'primary',
+						'container'      => false,
+						'menu_class'     => 'nav-menu nav-menu--primary',
+						'fallback_cb'    => false,
+					) );
+				} else {
+					// Fallback nav when no menu is assigned in WP admin.
+					$fallback_items = array(
+						array( 'label' => 'Home',        'url' => home_url( '/' ) ),
+						array( 'label' => 'Shop',        'url' => home_url( '/shop/' ) ),
+						array( 'label' => 'Bestsellers', 'url' => home_url( '/bestsellers/' ) ),
+						array( 'label' => 'Under ₹299',  'url' => home_url( '/under-299/' ), 'hot' => true ),
+						array( 'label' => 'Sets',        'url' => home_url( '/sets/' ) ),
+						array( 'label' => 'Lookbook',    'url' => home_url( '/lookbook/' ) ),
+						array( 'label' => 'About',       'url' => home_url( '/about/' ) ),
+					);
+					echo '<ul class="nav-menu nav-menu--primary">';
+					foreach ( $fallback_items as $item ) {
+						$extra = ! empty( $item['hot'] ) ? ' menu-item--hot' : '';
+						printf(
+							'<li class="menu-item%s"><a href="%s">%s</a></li>',
+							esc_attr( $extra ),
+							esc_url( $item['url'] ),
+							esc_html( $item['label'] )
+						);
+					}
+					echo '</ul>';
+				}
+				?>
+			</nav>
+
+			<!-- Right icon group -->
+			<div class="site-header__actions">
+
+				<!-- Search (desktop/tablet only) -->
+				<button
+					type="button"
+					class="site-header__action-btn site-header__search js-search-toggle"
+					aria-label="<?php esc_attr_e( 'Open search', 'genzee-jewels' ); ?>"
+				>
+					<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true" focusable="false">
+						<circle cx="11" cy="11" r="7"/>
+						<path d="M16 16L21 21"/>
+					</svg>
+				</button>
+
+				<!-- Account (desktop only) -->
+				<a
+					href="<?php echo esc_url( $genzee_account_url ); ?>"
+					class="site-header__action-btn site-header__account"
+					aria-label="<?php esc_attr_e( 'My account', 'genzee-jewels' ); ?>"
+				>
+					<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true" focusable="false">
+						<circle cx="12" cy="8" r="4"/>
+						<path d="M4 21Q12 15 20 21"/>
+					</svg>
+				</a>
+
+				<!-- Wishlist placeholder (desktop only) -->
+				<button
+					type="button"
+					class="site-header__action-btn site-header__wishlist"
+					aria-label="<?php esc_attr_e( 'Wishlist', 'genzee-jewels' ); ?>"
+				>
+					<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true" focusable="false">
+						<path d="M12 21C6 17 2 13 2 8a5 5 0 0 1 10-2 5 5 0 0 1 10 2c0 5-4 9-10 13z"/>
+					</svg>
+				</button>
+
+				<!-- Cart (always visible) -->
+				<a
+					href="<?php echo esc_url( $genzee_cart_url ); ?>"
+					class="site-header__action-btn site-header__cart"
+					aria-label="<?php
+						echo esc_attr( sprintf(
+							/* translators: %d: number of items in cart */
+							_n( 'Cart — %d item', 'Cart — %d items', $genzee_cart_count, 'genzee-jewels' ),
+							$genzee_cart_count
+						) );
+					?>"
+				>
+					<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true" focusable="false">
+						<path d="M5 7h14l-1.5 11Q17 20 15 20H9Q7 20 6.5 18Z"/>
+						<path d="M9 7Q9 3 12 3Q15 3 15 7"/>
+					</svg>
+					<span
+						class="site-header__cart-badge<?php echo 0 === $genzee_cart_count ? ' is-empty' : ''; ?>"
+						aria-hidden="true"
+					><?php echo esc_html( $genzee_cart_count ); ?></span>
+				</a>
+
+				<!-- Mobile hamburger toggle -->
+				<button
+					type="button"
+					class="site-header__menu-toggle"
+					aria-controls="primary-navigation"
+					aria-expanded="false"
+					aria-label="<?php esc_attr_e( 'Open navigation menu', 'genzee-jewels' ); ?>"
+				>
+					<span class="menu-toggle__bar" aria-hidden="true"></span>
+					<span class="menu-toggle__bar" aria-hidden="true"></span>
+					<span class="menu-toggle__bar" aria-hidden="true"></span>
+				</button>
+
+			</div>
+
+		</div>
+	</div>
+
+</header>
+
+<main id="main" class="site-main">

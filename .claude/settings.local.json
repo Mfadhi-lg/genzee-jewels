@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(php -l functions.php)",
+      "Bash(php -l index.php)",
+      "Bash(php -l header.php)",
+      "Bash(php -l footer.php)",
+      "Bash(php -l front-page.php)",
+      "Bash(php -l \"template-parts/components/product-card.php\")",
+      "Bash(php -l \"template-parts/components/stars.php\")",
+      "Bash(php -l \"template-parts/components/price.php\")",
+      "Bash(php -l \"functions.php\")"
+    ]
+  }
+}
