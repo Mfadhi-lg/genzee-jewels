@@ -27,7 +27,13 @@ get_header();
 					</header>
 
 					<div class="entry-content">
-						<?php the_excerpt(); ?>
+						<?php
+						if ( is_singular() ) {
+							the_content();
+						} else {
+							the_excerpt();
+						}
+						?>
 					</div>
 
 				</article>

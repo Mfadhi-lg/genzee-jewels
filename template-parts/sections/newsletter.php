@@ -7,6 +7,10 @@
  *
  * @package genzee-jewels
  */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 ?>
 
 <section class="section-newsletter">

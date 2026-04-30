@@ -8,6 +8,10 @@
  *
  * @package genzee-jewels
  */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 ?>
 
 <div

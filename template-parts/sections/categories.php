@@ -87,7 +87,7 @@ if ( ! function_exists( 'genzee_category_svg' ) ) {
 			</svg>',
 		];
 
-		return $svgs[ $slug ] ?? $svgs['earrings'];
+		return isset( $svgs[ $slug ] ) ? $svgs[ $slug ] : $svgs['earrings'];
 	}
 }
 
@@ -98,6 +98,7 @@ $categories = [
 		'name'  => __( 'Earrings', 'genzee-jewels' ),
 		'count' => 128,
 		'color' => '#FFE14A',
+		'tone'  => 'butter',
 		'dark'  => false,
 		'from'  => '₹179',
 		'link'  => home_url( '/product-category/earrings/' ),
@@ -107,6 +108,7 @@ $categories = [
 		'name'  => __( 'Necklaces', 'genzee-jewels' ),
 		'count' => 94,
 		'color' => '#C9B6FF',
+		'tone'  => 'lilac',
 		'dark'  => false,
 		'from'  => '₹179',
 		'link'  => home_url( '/product-category/necklaces/' ),
@@ -116,6 +118,7 @@ $categories = [
 		'name'  => __( 'Rings', 'genzee-jewels' ),
 		'count' => 76,
 		'color' => '#FF7A3D',
+		'tone'  => 'tangerine',
 		'dark'  => false,
 		'from'  => '₹179',
 		'link'  => home_url( '/product-category/rings/' ),
@@ -125,6 +128,7 @@ $categories = [
 		'name'  => __( 'Bracelets', 'genzee-jewels' ),
 		'count' => 62,
 		'color' => '#B8F2C9',
+		'tone'  => 'mint',
 		'dark'  => false,
 		'from'  => '₹179',
 		'link'  => home_url( '/product-category/bracelets/' ),
@@ -134,6 +138,7 @@ $categories = [
 		'name'  => __( 'Nose Pins', 'genzee-jewels' ),
 		'count' => 38,
 		'color' => '#FF2D6F',
+		'tone'  => 'hot',
 		'dark'  => false,
 		'from'  => '₹149',
 		'link'  => home_url( '/product-category/nose-pins/' ),
@@ -143,6 +148,7 @@ $categories = [
 		'name'  => __( 'Sets', 'genzee-jewels' ),
 		'count' => 45,
 		'color' => '#0A0A0A',
+		'tone'  => 'ink',
 		'dark'  => true,
 		'from'  => '₹299',
 		'link'  => home_url( '/product-category/sets/' ),
@@ -209,12 +215,11 @@ if ( class_exists( 'WooCommerce' ) ) {
 
 		<ul class="categories-grid" role="list">
 			<?php foreach ( $categories as $cat ) :
-				$tile_class = 'cat-tile' . ( ! empty( $cat['dark'] ) ? ' cat-tile--dark' : '' );
+				$tile_class = 'cat-tile cat-tile--' . $cat['tone'] . ( ! empty( $cat['dark'] ) ? ' cat-tile--dark' : '' );
 			?>
 			<li>
 				<a href="<?php echo esc_url( $cat['link'] ); ?>"
 					class="<?php echo esc_attr( $tile_class ); ?>"
-					style="--cat-color:<?php echo esc_attr( $cat['color'] ); ?>;"
 					aria-label="<?php
 						printf(
 							/* translators: %s: category name */

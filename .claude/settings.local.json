@@ -9,7 +9,9 @@
       "Bash(php -l \"template-parts/components/product-card.php\")",
       "Bash(php -l \"template-parts/components/stars.php\")",
       "Bash(php -l \"template-parts/components/price.php\")",
-      "Bash(php -l \"functions.php\")"
+      "Bash(php -l \"functions.php\")",
+      "mcp__filesystem__search_files",
+      "mcp__filesystem__list_directory"
     ]
   }
 }

@@ -9,7 +9,11 @@
 // Resolve cart count and URLs safely before HTML output.
 $genzee_cart_count  = 0;
 $genzee_cart_url    = home_url( '/cart/' );
-$genzee_account_url = home_url( '/my-account/' );
+$genzee_account_url  = home_url( '/my-account/' );
+$genzee_wishlist_url = function_exists( 'genzee_jewels_get_wishlist_page_url' ) ? genzee_jewels_get_wishlist_page_url() : home_url( '/wishlist/' );
+if ( ! $genzee_wishlist_url ) {
+	$genzee_wishlist_url = home_url( '/wishlist/' );
+}
 
 if ( class_exists( 'WooCommerce' ) ) {
 	if ( function_exists( 'WC' ) && WC()->cart ) {
@@ -25,6 +29,8 @@ if ( class_exists( 'WooCommerce' ) ) {
 		}
 	}
 }
+
+$genzee_is_checkout = function_exists( 'is_checkout' ) && is_checkout();
 ?><!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
@@ -140,11 +146,15 @@ if ( class_exists( 'WooCommerce' ) ) {
 			<!-- Right icon group -->
 			<div class="site-header__actions">
 
+				<?php if ( ! $genzee_is_checkout ) : ?>
+
 				<!-- Search (desktop/tablet only) -->
 				<button
 					type="button"
 					class="site-header__action-btn site-header__search js-search-toggle"
 					aria-label="<?php esc_attr_e( 'Open search', 'genzee-jewels' ); ?>"
+					aria-expanded="false"
+					aria-controls="header-search-panel"
 				>
 					<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true" focusable="false">
 						<circle cx="11" cy="11" r="7"/>
@@ -164,21 +174,26 @@ if ( class_exists( 'WooCommerce' ) ) {
 					</svg>
 				</a>
 
-				<!-- Wishlist placeholder (desktop only) -->
-				<button
-					type="button"
+				<!-- Wishlist (desktop only) -->
+				<a
+					href="<?php echo esc_url( $genzee_wishlist_url ); ?>"
 					class="site-header__action-btn site-header__wishlist"
 					aria-label="<?php esc_attr_e( 'Wishlist', 'genzee-jewels' ); ?>"
 				>
 					<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true" focusable="false">
 						<path d="M12 21C6 17 2 13 2 8a5 5 0 0 1 10-2 5 5 0 0 1 10 2c0 5-4 9-10 13z"/>
 					</svg>
-				</button>
+					<span
+						class="site-header__cart-badge site-header__wishlist-badge is-empty"
+						aria-hidden="true"
+						data-wishlist-count
+					>0</span>
+				</a>
 
-				<!-- Cart (always visible) -->
+				<!-- Cart (always visible; JS intercepts click to open drawer, href is no-JS fallback) -->
 				<a
 					href="<?php echo esc_url( $genzee_cart_url ); ?>"
-					class="site-header__action-btn site-header__cart"
+					class="site-header__action-btn site-header__cart js-cart-toggle"
 					aria-label="<?php
 						echo esc_attr( sprintf(
 							/* translators: %d: number of items in cart */
@@ -186,6 +201,8 @@ if ( class_exists( 'WooCommerce' ) ) {
 							$genzee_cart_count
 						) );
 					?>"
+					aria-expanded="false"
+					aria-controls="cart-drawer"
 				>
 					<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true" focusable="false">
 						<path d="M5 7h14l-1.5 11Q17 20 15 20H9Q7 20 6.5 18Z"/>
@@ -194,6 +211,7 @@ if ( class_exists( 'WooCommerce' ) ) {
 					<span
 						class="site-header__cart-badge<?php echo 0 === $genzee_cart_count ? ' is-empty' : ''; ?>"
 						aria-hidden="true"
+						data-cart-count
 					><?php echo esc_html( $genzee_cart_count ); ?></span>
 				</a>
 
@@ -209,9 +227,49 @@ if ( class_exists( 'WooCommerce' ) ) {
 					<span class="menu-toggle__bar" aria-hidden="true"></span>
 					<span class="menu-toggle__bar" aria-hidden="true"></span>
 				</button>
+				<?php else : ?>
+				<a href="<?php echo esc_url( function_exists( 'wc_get_cart_url' ) ? wc_get_cart_url() : $genzee_cart_url ); ?>" class="site-header__checkout-back">
+					<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+						<path d="M19 12H5"></path>
+						<path d="M12 19l-7-7 7-7"></path>
+					</svg>
+					<?php esc_html_e( 'Back to cart', 'genzee-jewels' ); ?>
+				</a>
+				<?php endif; ?>
 
 			</div>
 
+		</div>
+	</div>
+
+	<div id="header-search-panel" class="header-search-panel" hidden>
+		<div class="container header-search-panel__inner">
+			<form class="header-search-panel__form" role="search" method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>">
+				<label class="screen-reader-text" for="header-product-search">
+					<?php esc_html_e( 'Search products', 'genzee-jewels' ); ?>
+				</label>
+				<span class="header-search-panel__icon" aria-hidden="true">
+					<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" focusable="false">
+						<circle cx="11" cy="11" r="7"></circle>
+						<path d="M16 16L21 21"></path>
+					</svg>
+				</span>
+				<input
+					id="header-product-search"
+					class="header-search-panel__input"
+					type="search"
+					name="s"
+					placeholder="<?php esc_attr_e( 'Search hoops, chains, sets...', 'genzee-jewels' ); ?>"
+					autocomplete="off"
+				>
+				<input type="hidden" name="post_type" value="product">
+				<button class="header-search-panel__submit" type="submit">
+					<?php esc_html_e( 'Search', 'genzee-jewels' ); ?>
+				</button>
+				<button class="header-search-panel__close js-search-close" type="button" aria-label="<?php esc_attr_e( 'Close search', 'genzee-jewels' ); ?>">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</form>
 		</div>
 	</div>
 

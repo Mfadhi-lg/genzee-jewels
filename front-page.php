@@ -9,29 +9,35 @@
  */
 
 get_header();
+
+$genzee_home_sections = array(
+	'hero',
+	'trust-strip',
+	'categories',
+	'impulse-zone',
+	'bestsellers',
+	'combo-banner',
+	'new-drops',
+	'spin-reviews',
+	'instagram-grid',
+	'newsletter',
+);
 ?>
 
-	<?php get_template_part( 'template-parts/sections/hero' ); ?>
+	<?php foreach ( $genzee_home_sections as $genzee_home_section ) : ?>
+		<?php
+		$genzee_template = 'template-parts/sections/' . $genzee_home_section . '.php';
 
-	<?php get_template_part( 'template-parts/sections/trust-strip' ); ?>
-
-	<?php get_template_part( 'template-parts/sections/categories' ); ?>
-
-	<?php get_template_part( 'template-parts/sections/impulse-zone' ); ?>
-
-	<?php get_template_part( 'template-parts/sections/bestsellers' ); ?>
-
-	<?php get_template_part( 'template-parts/sections/combo-banner' ); ?>
-
-	<?php get_template_part( 'template-parts/sections/new-drops' ); ?>
-
-	<?php get_template_part( 'template-parts/sections/spin-reviews' ); ?>
-
-	<?php get_template_part( 'template-parts/sections/instagram-grid' ); ?>
-
-	<?php get_template_part( 'template-parts/sections/newsletter' ); ?>
-
-	<?php get_template_part( 'template-parts/components/live-toast' ); ?>
+		if ( locate_template( $genzee_template ) ) {
+			get_template_part( 'template-parts/sections/' . $genzee_home_section );
+		} elseif ( current_user_can( 'manage_options' ) ) {
+			printf(
+				"\n<!-- Genzee theme missing homepage section: %s -->\n",
+				esc_html( $genzee_template )
+			);
+		}
+		?>
+	<?php endforeach; ?>
 
 <?php
 get_footer();
