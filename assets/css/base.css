@@ -79,6 +79,17 @@
   --transition-fast: 150ms ease;
   --transition-base: 250ms ease;
   --transition-slow: 400ms ease;
+
+  /* Z-index scale */
+  --z-sticky-tools:  80;
+  --z-filter-drawer: 90;
+  --z-nav-dropdown:  99;
+  --z-header:        100;
+  --z-autocomplete:  120;
+  --z-cart-backdrop: 200;
+  --z-cart-drawer:   201;
+  --z-toast:         9000;
+  --z-toast-high:    9100;
 }
 
 @media (min-width: 640px) {

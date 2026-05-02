@@ -343,7 +343,7 @@ function genzee_jewels_cart_fragments( $fragments ) {
 add_filter( 'woocommerce_add_to_cart_fragments', 'genzee_jewels_cart_fragments' );
 
 /**
- * Handles the PDP bundle CTA, which adds the displayed bundle products together.
+ * Handles the PDP multi-item CTA, which adds the displayed products together.
  *
  * @param array<int|string> $raw_product_ids Raw product IDs from the request.
  * @return array<int>|WP_Error
@@ -359,7 +359,7 @@ function genzee_jewels_prepare_bundle_product_ids( $raw_product_ids ) {
 		$bundle_product = function_exists( 'wc_get_product' ) ? wc_get_product( $product_id ) : null;
 
 		if ( ! $bundle_product instanceof WC_Product || ! $bundle_product->is_type( 'simple' ) || ! $bundle_product->is_purchasable() || ! $bundle_product->is_in_stock() ) {
-			return new WP_Error( 'genzee_invalid_bundle_item', __( 'One of the bundle items needs options or is unavailable.', 'genzee-jewels' ) );
+			return new WP_Error( 'genzee_invalid_bundle_item', __( 'One of the selected items needs options or is unavailable.', 'genzee-jewels' ) );
 		}
 	}
 
@@ -367,7 +367,7 @@ function genzee_jewels_prepare_bundle_product_ids( $raw_product_ids ) {
 }
 
 /**
- * Handles the PDP bundle CTA, which adds the displayed bundle products together.
+ * Handles the PDP multi-item CTA, which adds the displayed products together.
  */
 function genzee_jewels_handle_bundle_add_to_cart() {
 	if ( empty( $_POST['genzee_add_bundle'] ) || ! function_exists( 'WC' ) || ! WC()->cart ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
@@ -384,7 +384,7 @@ function genzee_jewels_handle_bundle_add_to_cart() {
 
 	if ( ! $source_product_id || ! wp_verify_nonce( $nonce, 'genzee_add_bundle_' . $source_product_id ) ) {
 		if ( function_exists( 'wc_add_notice' ) ) {
-			wc_add_notice( __( 'We could not add that bundle. Please refresh the page and try again.', 'genzee-jewels' ), 'error' );
+			wc_add_notice( __( 'We could not add those items. Please refresh the page and try again.', 'genzee-jewels' ), 'error' );
 		}
 
 		wp_safe_redirect( $return_url );
@@ -413,7 +413,7 @@ function genzee_jewels_handle_bundle_add_to_cart() {
 
 	if ( $added_count === count( $product_ids ) ) {
 		if ( function_exists( 'wc_add_notice' ) ) {
-			wc_add_notice( __( 'Bundle added to your cart.', 'genzee-jewels' ), 'success' );
+			wc_add_notice( __( 'Items added to your cart.', 'genzee-jewels' ), 'success' );
 		}
 
 		wp_safe_redirect( function_exists( 'wc_get_cart_url' ) ? wc_get_cart_url() : $return_url );
@@ -421,7 +421,7 @@ function genzee_jewels_handle_bundle_add_to_cart() {
 	}
 
 	if ( function_exists( 'wc_add_notice' ) ) {
-		wc_add_notice( __( 'We could not add the full bundle. Please review your cart.', 'genzee-jewels' ), 'error' );
+		wc_add_notice( __( 'We could not add all items. Please review your cart.', 'genzee-jewels' ), 'error' );
 	}
 
 	wp_safe_redirect( $return_url );
@@ -470,7 +470,7 @@ function genzee_jewels_ajax_add_bundle_to_cart() {
 
 	if ( $added_count !== count( $product_ids ) ) {
 		wp_send_json_error(
-			array( 'message' => __( 'We could not add the full bundle. Please review your cart.', 'genzee-jewels' ) ),
+			array( 'message' => __( 'We could not add all items. Please review your cart.', 'genzee-jewels' ) ),
 			400
 		);
 	}
@@ -481,7 +481,7 @@ function genzee_jewels_ajax_add_bundle_to_cart() {
 
 	wp_send_json_success(
 		array(
-			'message'   => __( 'Bundle added to your cart.', 'genzee-jewels' ),
+			'message'   => __( 'Items added to your cart.', 'genzee-jewels' ),
 			'cart_hash' => WC()->cart->get_cart_hash(),
 		)
 	);
@@ -1007,70 +1007,34 @@ function genzee_jewels_catalog_orderby_labels( $options ) {
 add_filter( 'woocommerce_catalog_orderby', 'genzee_jewels_catalog_orderby_labels' );
 add_filter( 'woocommerce_default_catalog_orderby_options', 'genzee_jewels_catalog_orderby_labels' );
 
-function genzee_jewels_woocommerce_hooks() {
-	// Single Product - Summary
-	remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title', 5 );
-	remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_rating', 10 );
-	remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10 );
-	remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_excerpt', 20 );
-	remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30 );
-	remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40 );
-
-	// Single Product - Before/After Summary
-	remove_action( 'woocommerce_before_single_product', 'woocommerce_output_all_notices', 10 );
-	remove_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_sale_flash', 10 );
-	remove_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_images', 20 );
-	remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10 );
-	remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_upsell_display', 15 );
-	remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20 );
-
-	// Additional Information
-	remove_action( 'woocommerce_product_additional_information', 'wc_display_product_attributes', 10 );
-
-	// Product Archive - Loop Items
-	remove_action( 'woocommerce_before_shop_loop_item', 'woocommerce_template_loop_product_link_open', 10 );
-	remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_product_link_close', 5 );
-	remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10 );
-	remove_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_show_product_loop_sale_flash', 10 );
-	remove_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_template_loop_product_thumbnail', 10 );
-	remove_action( 'woocommerce_shop_loop_item_title', 'woocommerce_template_loop_product_title', 10 );
-	remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_rating', 5 );
-	remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price', 10 );
-
-	// Archive - Before/After Loop
-	remove_action( 'woocommerce_before_shop_loop', 'woocommerce_output_all_notices', 10 );
-	remove_action( 'woocommerce_before_shop_loop', 'woocommerce_result_count', 20 );
-	remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30 );
-	remove_action( 'woocommerce_after_shop_loop', 'woocommerce_pagination', 10 );
-}
 /**
  * Adds trust badges to the checkout order review section.
  */
 function genzee_jewels_checkout_trust_badges() {
 	?>
 	<div class="checkout-trust-badges">
-		<div class="trust-badge">
+		<div class="checkout-trust-badge">
 			<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
 				<path d="M12 3l7 3v5c0 4.5-2.8 8.5-7 10-4.2-1.5-7-5.5-7-10V6l7-3z"></path>
 				<path d="M9 12l2 2 4-5"></path>
 			</svg>
 			<span><?php esc_html_e( 'Secure checkout', 'genzee-jewels' ); ?></span>
 		</div>
-		<div class="trust-badge">
+		<div class="checkout-trust-badge">
 			<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
 				<rect x="3" y="5" width="18" height="14" rx="2"></rect>
 				<path d="M3 10h18"></path>
 			</svg>
-			<span><?php esc_html_e( 'UPI, Cards & NetBanking via Razorpay', 'genzee-jewels' ); ?></span>
+			<span><?php esc_html_e( 'Payment options shown at checkout', 'genzee-jewels' ); ?></span>
 		</div>
-		<div class="trust-badge">
+		<div class="checkout-trust-badge">
 			<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
 				<path d="M3 7h11v9H3z"></path>
 				<path d="M14 10h4l3 3v3h-7z"></path>
 				<circle cx="7" cy="18" r="1.5"></circle>
 				<circle cx="17" cy="18" r="1.5"></circle>
 			</svg>
-			<span><?php esc_html_e( 'Fast shipping', 'genzee-jewels' ); ?></span>
+			<span><?php esc_html_e( 'Shipping calculated by WooCommerce', 'genzee-jewels' ); ?></span>
 		</div>
 	</div>
 	<?php

@@ -8,7 +8,7 @@
  * this file outputs only the <ul> — avoids nesting two <nav> landmarks.
  *
  * @package genzee-jewels
- * @version 2.6.0
+ * @version 9.4.0
  */
 
 defined( 'ABSPATH' ) || exit;

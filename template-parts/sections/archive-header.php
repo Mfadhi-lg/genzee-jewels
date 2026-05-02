@@ -27,15 +27,15 @@ if ( $archive_count > 0 ) {
 	/* translators: %s: number of products in the archive */
 	$archive_count_copy = sprintf(
 		_n(
-			'%s style &middot; all under &#8377;499 &middot; ships in 24hrs',
-			'%s styles &middot; all under &#8377;499 &middot; ships in 24hrs',
+			'%s style to browse',
+			'%s styles to browse',
 			$archive_count,
 			'genzee-jewels'
 		),
 		number_format_i18n( $archive_count )
 	);
 } else {
-	$archive_count_copy = esc_html__( 'All styles', 'genzee-jewels' ) . ' &middot; ' . esc_html__( 'all under', 'genzee-jewels' ) . ' &#8377;499 &middot; ' . esc_html__( 'ships in 24hrs', 'genzee-jewels' );
+	$archive_count_copy = esc_html__( 'Browse the latest styles', 'genzee-jewels' );
 }
 ?>
 
@@ -91,8 +91,8 @@ if ( $archive_count > 0 ) {
 				</p>
 
 				<span class="archive-header__badge">
-					<span aria-hidden="true">&#128293;</span>
-					<?php esc_html_e( '47 sold in last hour', 'genzee-jewels' ); ?>
+					<span aria-hidden="true">*</span>
+					<?php esc_html_e( 'Easy to style', 'genzee-jewels' ); ?>
 				</span>
 			</div>
 		</div>

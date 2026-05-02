@@ -87,12 +87,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 						</svg>
 					</a>
 					<div class="hero-price-note"
-						aria-label="<?php esc_attr_e( 'Everything under 499 rupees', 'genzee-jewels' ); ?>">
+						aria-label="<?php esc_attr_e( 'Everyday styling note', 'genzee-jewels' ); ?>">
 						<span class="hero-price-note__label">
-							<?php esc_html_e( 'EVERYTHING', 'genzee-jewels' ); ?>
+							<?php esc_html_e( 'EVERYDAY', 'genzee-jewels' ); ?>
 						</span>
 						<span class="hero-price-note__value">
-							<?php esc_html_e( 'Under ₹499', 'genzee-jewels' ); ?>
+							<?php esc_html_e( 'Easy to style', 'genzee-jewels' ); ?>
 						</span>
 					</div>
 				</div>
@@ -103,39 +103,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<!-- ── Right: offer column ──────────────────────── -->
 		<div class="hero-aside">
 
-			<!-- Deal of the Day -->
+			<!-- Style pick -->
 			<div class="hero-deal">
 				<div class="hero-deal__blob" aria-hidden="true"></div>
 				<div class="hero-deal__label">
 					<span class="pulse-dot hero-deal__dot" aria-hidden="true"></span>
-					<?php esc_html_e( 'DEAL OF THE DAY', 'genzee-jewels' ); ?>
+					<?php esc_html_e( 'STYLE PICK', 'genzee-jewels' ); ?>
 				</div>
 				<p class="hero-deal__heading">
-					<?php esc_html_e( 'Flat', 'genzee-jewels' ); ?>
-					<span class="hero-deal__accent"><?php esc_html_e( '70% off', 'genzee-jewels' ); ?></span><br>
-					<?php esc_html_e( 'on Sets', 'genzee-jewels' ); ?>
+					<?php esc_html_e( 'Fresh', 'genzee-jewels' ); ?>
+					<span class="hero-deal__accent"><?php esc_html_e( 'styling', 'genzee-jewels' ); ?></span><br>
+					<?php esc_html_e( 'ideas', 'genzee-jewels' ); ?>
 				</p>
 				<div class="hero-deal__footer">
 					<span class="hero-deal__ends-label">
-						<?php esc_html_e( 'ENDS IN', 'genzee-jewels' ); ?>
+						<?php esc_html_e( 'Curated for everyday outfit upgrades', 'genzee-jewels' ); ?>
 					</span>
-					<div class="hero-countdown"
-						data-countdown="7845"
-						aria-live="polite"
-						aria-atomic="true"
-						aria-label="<?php esc_attr_e( 'Deal countdown timer', 'genzee-jewels' ); ?>">
-						<div class="hero-countdown__unit">
-							<span class="hero-countdown__val js-countdown-h">02</span>
-						</div>
-						<span class="hero-countdown__sep" aria-hidden="true">:</span>
-						<div class="hero-countdown__unit">
-							<span class="hero-countdown__val js-countdown-m">10</span>
-						</div>
-						<span class="hero-countdown__sep" aria-hidden="true">:</span>
-						<div class="hero-countdown__unit">
-							<span class="hero-countdown__val js-countdown-s">45</span>
-						</div>
-					</div>
 				</div>
 				<a href="<?php echo esc_url( home_url( '/product-category/sets/' ) ); ?>"
 					class="hero-deal__link">

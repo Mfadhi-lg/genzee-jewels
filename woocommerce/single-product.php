@@ -6,6 +6,7 @@
  * All product display is handled by our custom template parts;
  * default WC hooks are removed in functions.php.
  *
+ * @version 9.4.0
  * @package genzee-jewels
  */
 

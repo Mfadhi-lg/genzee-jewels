@@ -23,26 +23,25 @@ if ( class_exists( 'WooCommerce' ) && function_exists( 'wc_get_page_permalink' )
 $about_under_url = add_query_arg( 'max_price', '299', $about_shop_url );
 $about_new_url   = add_query_arg( 'orderby', 'date', $about_shop_url );
 
-// Marketing placeholders; replace with real brand numbers when available.
 $about_stats = array(
 	array(
-		'value' => '2.4M+',
-		'label' => __( 'Pieces shipped', 'genzee-jewels' ),
+		'value' => __( 'Trend-led', 'genzee-jewels' ),
+		'label' => __( 'Fashion jewellery edits', 'genzee-jewels' ),
 		'tone'  => 'butter',
 	),
 	array(
-		'value' => '180K+',
-		'label' => __( 'Happy besties', 'genzee-jewels' ),
+		'value' => __( 'Giftable', 'genzee-jewels' ),
+		'label' => __( 'Cute packaging focus', 'genzee-jewels' ),
 		'tone'  => 'hot',
 	),
 	array(
-		'value' => '4.8/5',
-		'label' => __( 'Average rating', 'genzee-jewels' ),
+		'value' => __( 'Everyday', 'genzee-jewels' ),
+		'label' => __( 'Easy styling pieces', 'genzee-jewels' ),
 		'tone'  => 'lilac',
 	),
 	array(
-		'value' => '&lt;&#8377;499',
-		'label' => __( 'On everything', 'genzee-jewels' ),
+		'value' => __( 'Playful', 'genzee-jewels' ),
+		'label' => __( 'Drops made for outfit updates', 'genzee-jewels' ),
 		'tone'  => 'ink',
 	),
 );
@@ -50,8 +49,8 @@ $about_stats = array(
 $about_values = array(
 	array(
 		'number' => '01',
-		'title'  => __( 'Quality you can trust', 'genzee-jewels' ),
-		'copy'   => __( 'We choose pieces that look polished, feel easy to wear, and are made for everyday styling &mdash; not one-time use.', 'genzee-jewels' ),
+		'title'  => __( 'Made for styling', 'genzee-jewels' ),
+		'copy'   => __( 'We choose pieces that look polished, feel easy to wear, and work across everyday outfits.', 'genzee-jewels' ),
 		'tone'   => 'butter',
 	),
 	array(
@@ -68,14 +67,11 @@ $about_values = array(
 	),
 );
 
-// Visual placeholders; replace/remove if not real press mentions.
-$about_press_mentions = array(
-	__( 'VOGUE INDIA', 'genzee-jewels' ),
-	__( 'ELLE', 'genzee-jewels' ),
-	__( 'YOUR STORY', 'genzee-jewels' ),
-	__( 'LBB', 'genzee-jewels' ),
-	__( 'COSMOPOLITAN', 'genzee-jewels' ),
-	__( 'GRAZIA', 'genzee-jewels' ),
+$about_focus_points = array(
+	__( 'Playful drops', 'genzee-jewels' ),
+	__( 'Easy gifting', 'genzee-jewels' ),
+	__( 'Everyday styling', 'genzee-jewels' ),
+	__( 'Impulse-friendly prices', 'genzee-jewels' ),
 );
 ?>
 
@@ -159,7 +155,7 @@ $about_press_mentions = array(
 	</div>
 </section>
 
-<section class="about-stats" aria-label="<?php esc_attr_e( 'Genzee at a glance', 'genzee-jewels' ); ?>">
+<section class="about-stats" aria-label="<?php esc_attr_e( 'Genzee focus areas', 'genzee-jewels' ); ?>">
 	<div class="container">
 		<div class="about-stats__grid">
 			<?php foreach ( $about_stats as $about_stat ) : ?>
@@ -227,10 +223,10 @@ $about_press_mentions = array(
 <section class="about-press" aria-labelledby="about-press-title">
 	<div class="container">
 		<div class="about-press__panel">
-			<h2 id="about-press-title"><?php esc_html_e( 'AS SEEN IN', 'genzee-jewels' ); ?></h2>
+			<h2 id="about-press-title"><?php esc_html_e( 'WHAT WE FOCUS ON', 'genzee-jewels' ); ?></h2>
 			<ul class="about-press__list">
-				<?php foreach ( $about_press_mentions as $about_press_mention ) : ?>
-					<li><?php echo esc_html( $about_press_mention ); ?></li>
+				<?php foreach ( $about_focus_points as $about_focus_point ) : ?>
+					<li><?php echo esc_html( $about_focus_point ); ?></li>
 				<?php endforeach; ?>
 			</ul>
 		</div>

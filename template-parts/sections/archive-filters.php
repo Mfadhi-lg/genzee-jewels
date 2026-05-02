@@ -366,6 +366,7 @@ ob_start();
 		</div>
 	</section>
 
+	<?php if ( ! empty( $archive_filter_category_options ) ) : ?>
 	<section class="archive-filters__card" aria-labelledby="archive-filters-category-title-<?php echo esc_attr( $archive_filter_heading_suffix ); ?>">
 		<h3 class="archive-filters__group-title" id="archive-filters-category-title-<?php echo esc_attr( $archive_filter_heading_suffix ); ?>">
 			<?php esc_html_e( 'Category', 'genzee-jewels' ); ?>
@@ -389,6 +390,7 @@ ob_start();
 			<?php endforeach; ?>
 		</ul>
 	</section>
+	<?php endif; ?>
 
 	<?php if ( ! empty( $archive_filter_metal_terms ) ) : ?>
 	<section class="archive-filters__card" aria-labelledby="archive-filters-metal-title-<?php echo esc_attr( $archive_filter_heading_suffix ); ?>">
@@ -505,15 +507,15 @@ ob_start();
 		</ul>
 	</section>
 
-	<section class="archive-filters__promo" aria-label="<?php esc_attr_e( 'Freebie promotion', 'genzee-jewels' ); ?>">
+	<section class="archive-filters__promo" aria-label="<?php esc_attr_e( 'Style note', 'genzee-jewels' ); ?>">
 		<p class="archive-filters__promo-eyebrow">
-			<?php esc_html_e( 'Freebie', 'genzee-jewels' ); ?>
+			<?php esc_html_e( 'Style note', 'genzee-jewels' ); ?>
 		</p>
 		<h3 class="archive-filters__promo-title">
-			<?php esc_html_e( 'Spend ₹799, get a nose pin free.', 'genzee-jewels' ); ?>
+			<?php esc_html_e( 'Small pieces can change the whole stack.', 'genzee-jewels' ); ?>
 		</h3>
 		<p class="archive-filters__promo-copy">
-			<?php esc_html_e( 'A small bonus nudge for stacking one more piece into the cart.', 'genzee-jewels' ); ?>
+			<?php esc_html_e( 'Use filters to find pieces that fit your everyday styling.', 'genzee-jewels' ); ?>
 		</p>
 	</section>
 </div>

@@ -43,7 +43,7 @@
 .site-header {
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: var(--z-header);
   background-color: var(--color-white);
   box-shadow: 0 1px 0 var(--color-line), 0 4px 12px rgba(0, 0, 0, 0.06);
 }
@@ -329,7 +329,7 @@
   top: calc(100% + 0.5rem);
   left: 0;
   right: 0;
-  z-index: 120;
+  z-index: var(--z-autocomplete);
   overflow: hidden;
   border: 1px solid var(--color-line);
   border-radius: var(--r-md);
@@ -502,7 +502,7 @@
     border-top: 1px solid var(--color-line);
     border-bottom: 2px solid var(--color-line);
     padding: var(--space-2) 0 var(--space-4);
-    z-index: 99;
+    z-index: var(--z-nav-dropdown);
   }
 
   .site-header__nav.is-open {

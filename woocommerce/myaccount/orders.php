@@ -111,7 +111,7 @@ do_action( 'woocommerce_before_account_orders', $has_orders );
 	<div class="acct-empty-state">
 		<span class="acct-empty-state__icon" aria-hidden="true">✨</span>
 		<p class="acct-empty-state__title"><?php esc_html_e( 'No orders yet', 'genzee-jewels' ); ?></p>
-		<p class="acct-empty-state__copy"><?php esc_html_e( 'Time to treat yourself — everything is under ₹499.', 'genzee-jewels' ); ?></p>
+		<p class="acct-empty-state__copy"><?php esc_html_e( 'Time to browse something easy to style for your next outfit.', 'genzee-jewels' ); ?></p>
 		<a
 			href="<?php echo esc_url( apply_filters( 'woocommerce_return_to_shop_redirect', wc_get_page_permalink( 'shop' ) ) ); ?>"
 			class="button woocommerce-button wc-backward acct-btn acct-btn--primary"

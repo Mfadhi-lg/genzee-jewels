@@ -154,10 +154,10 @@ $suggestions = array(
 					<?php esc_html_e( "Can't find it?", 'genzee-jewels' ); ?>
 				</p>
 				<h2 class="search-ig-card__title">
-					<?php esc_html_e( "DM us on IG, we'll source it", 'genzee-jewels' ); ?> <span aria-hidden="true">&#10024;</span>
+					<?php esc_html_e( 'Browse new drops for similar styles', 'genzee-jewels' ); ?> <span aria-hidden="true">&#10024;</span>
 				</h2>
-				<a class="search-ig-card__button" href="<?php echo esc_url( 'https://www.instagram.com/genzee.jewels/' ); ?>" target="_blank" rel="noopener noreferrer">
-					<?php esc_html_e( '@GENZEE.JEWELS', 'genzee-jewels' ); ?> <span aria-hidden="true">&rarr;</span>
+				<a class="search-ig-card__button" href="<?php echo esc_url( $shop_url ); ?>">
+					<?php esc_html_e( 'Shop new drops', 'genzee-jewels' ); ?> <span aria-hidden="true">&rarr;</span>
 				</a>
 			</div>
 

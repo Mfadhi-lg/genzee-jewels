@@ -34,41 +34,17 @@ switch ( $tile_type ) {
 
 				<div class="promo-tile__flash-top">
 					<span class="promo-tile__badge promo-tile__badge--hot">
-						&#9889; <?php esc_html_e( 'FLASH', 'genzee-jewels' ); ?>
+						<?php esc_html_e( 'STYLE EDIT', 'genzee-jewels' ); ?>
 					</span>
 
 					<h3 class="promo-tile__flash-heading">
-						<?php esc_html_e( 'Buy 2', 'genzee-jewels' ); ?><br>
-						<?php
-						echo wp_kses(
-							__( 'get 1 <span class="promo-tile__flash-free">FREE</span>', 'genzee-jewels' ),
-							array( 'span' => array( 'class' => array() ) )
-						);
-						?>
+						<?php esc_html_e( 'Style', 'genzee-jewels' ); ?><br>
+						<?php esc_html_e( 'edit', 'genzee-jewels' ); ?>
 					</h3>
 
 					<p class="promo-tile__flash-copy">
-						<?php esc_html_e( 'Mix & match from any category. Cheapest item is free.', 'genzee-jewels' ); ?>
+						<?php esc_html_e( 'Browse pieces that are easy to mix into your everyday stack.', 'genzee-jewels' ); ?>
 					</p>
-				</div>
-
-				<div class="promo-tile__countdown">
-					<p class="promo-tile__countdown-label">
-						<?php esc_html_e( 'ENDS IN', 'genzee-jewels' ); ?>
-					</p>
-					<div class="promo-tile__countdown-blocks" aria-hidden="true" data-countdown="5280">
-						<div class="promo-tile__countdown-block">
-							<span class="promo-tile__countdown-digit js-countdown-h">01</span>
-						</div>
-						<span class="promo-tile__countdown-sep">:</span>
-						<div class="promo-tile__countdown-block">
-							<span class="promo-tile__countdown-digit js-countdown-m">28</span>
-						</div>
-						<span class="promo-tile__countdown-sep">:</span>
-						<div class="promo-tile__countdown-block">
-							<span class="promo-tile__countdown-digit js-countdown-s">44</span>
-						</div>
-					</div>
 				</div>
 
 			</div>
@@ -81,10 +57,10 @@ switch ( $tile_type ) {
 		?>
 		<div class="promo-tile promo-tile--freebie">
 			<p class="promo-tile__freebie-eyebrow">
-				&#127873; <?php esc_html_e( 'FREEBIE', 'genzee-jewels' ); ?>
+				<?php esc_html_e( 'STYLE NOTE', 'genzee-jewels' ); ?>
 			</p>
 			<h3 class="promo-tile__freebie-heading">
-				<?php esc_html_e( 'Spend ₹799, get a nose pin free.', 'genzee-jewels' ); ?>
+				<?php esc_html_e( 'Small pieces can change the whole stack.', 'genzee-jewels' ); ?>
 			</h3>
 		</div>
 		<?php
@@ -98,7 +74,7 @@ switch ( $tile_type ) {
 		?>
 		<a class="promo-tile promo-tile--shop-look"
 			href="<?php echo esc_url( $shop_look_url ); ?>"
-			aria-label="<?php esc_attr_e( 'Shop the look — 3 items from ₹199', 'genzee-jewels' ); ?>">
+			aria-label="<?php esc_attr_e( 'Shop styling ideas', 'genzee-jewels' ); ?>">
 
 			<span class="promo-tile__shop-look-art" aria-hidden="true">
 				<svg viewBox="0 0 600 800" focusable="false" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
@@ -135,14 +111,14 @@ switch ( $tile_type ) {
 
 			<div class="promo-tile__shop-look-overlay">
 				<span class="promo-tile__badge promo-tile__badge--butter">
-					&#128247; <?php esc_html_e( '@ishaa.b', 'genzee-jewels' ); ?>
+					<?php esc_html_e( 'STYLE IDEA', 'genzee-jewels' ); ?>
 				</span>
 				<div class="promo-tile__shop-look-text">
 					<h3 class="promo-tile__shop-look-heading">
 						<?php esc_html_e( 'Shop the look', 'genzee-jewels' ); ?>
 					</h3>
 					<p class="promo-tile__shop-look-sub">
-						<?php esc_html_e( '3 items · from ₹199', 'genzee-jewels' ); ?>
+						<?php esc_html_e( 'Easy styling ideas', 'genzee-jewels' ); ?>
 					</p>
 				</div>
 			</div>

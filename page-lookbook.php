@@ -538,6 +538,25 @@ get_header();
 		</div>
 	</section>
 
+	<?php if ( have_posts() ) : ?>
+		<?php while ( have_posts() ) : the_post(); ?>
+			<?php if ( '' !== trim( get_post_field( 'post_content', get_the_ID() ) ) ) : ?>
+				<div class="container page-entry__content lookbook-page__content">
+					<?php
+					the_content();
+
+					wp_link_pages(
+						array(
+							'before' => '<nav class="page-links" aria-label="' . esc_attr__( 'Page', 'genzee-jewels' ) . '">',
+							'after'  => '</nav>',
+						)
+					);
+					?>
+				</div>
+			<?php endif; ?>
+		<?php endwhile; ?>
+	<?php endif; ?>
+
 	<section class="lookbook-list" aria-label="<?php esc_attr_e( 'Shoppable editorial looks', 'genzee-jewels' ); ?>">
 		<div class="container lookbook-list__inner">
 			<?php foreach ( $lookbook_looks as $lookbook_index => $lookbook_look ) : ?>

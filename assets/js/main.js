@@ -690,7 +690,7 @@
 						return;
 					}
 
-					throw new Error( payload && payload.data && payload.data.message ? payload.data.message : 'Bundle could not be added.' );
+					throw new Error( payload && payload.data && payload.data.message ? payload.data.message : 'Items could not be added.' );
 				} )
 				.catch( function () {
 					if ( form ) {

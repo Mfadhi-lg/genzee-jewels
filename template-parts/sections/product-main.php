@@ -337,18 +337,12 @@ if ( $product->is_type( 'simple' ) && $product->is_purchasable() && $product->is
 
 			<p class="pdp-main__microcopy"><?php esc_html_e( 'Inclusive of all taxes. Shipping calculated at checkout.', 'genzee-jewels' ); ?></p>
 
-			<div class="pdp-main__deal" aria-label="<?php esc_attr_e( 'Current deal', 'genzee-jewels' ); ?>">
+			<div class="pdp-main__deal" aria-label="<?php esc_attr_e( 'Product note', 'genzee-jewels' ); ?>">
 				<div>
-					<span>⚡ <?php esc_html_e( 'DEAL ENDS IN', 'genzee-jewels' ); ?></span>
-					<small><?php esc_html_e( 'Price goes back up after', 'genzee-jewels' ); ?></small>
-				</div>
-				<div class="pdp-main__countdown" data-countdown="7200" aria-label="<?php esc_attr_e( 'Time remaining', 'genzee-jewels' ); ?>">
-					<b class="js-countdown-h" aria-hidden="true">02</b>
-					<b class="js-countdown-m" aria-hidden="true">00</b>
-					<b class="js-countdown-s" aria-hidden="true">00</b>
+					<span><?php esc_html_e( 'Easy to style', 'genzee-jewels' ); ?></span>
+					<small><?php esc_html_e( 'Add it to your cart and review shipping, coupons, and payment options at checkout.', 'genzee-jewels' ); ?></small>
 				</div>
 			</div>
-
 			<?php
 			$stock_classes = array( 'pdp-main__stock', 'pdp-main__stock--ok' );
 			$stock_title   = __( 'In stock', 'genzee-jewels' );
@@ -453,59 +447,36 @@ if ( $product->is_type( 'simple' ) && $product->is_purchasable() && $product->is
 			</a>
 
 			<section class="pdp-main__offers" aria-labelledby="pdp-offers-title">
-				<h2 class="pdp-main__panel-title" id="pdp-offers-title">🎁 <?php esc_html_e( 'Offers you unlock', 'genzee-jewels' ); ?></h2>
+				<h2 class="pdp-main__panel-title" id="pdp-offers-title"><?php esc_html_e( 'Style notes', 'genzee-jewels' ); ?></h2>
 				<ul class="pdp-main__offer-list">
 					<li class="pdp-main__offer">
-						<span class="pdp-main__offer-icon" aria-hidden="true">💸</span>
+						<span class="pdp-main__offer-icon" aria-hidden="true">*</span>
 						<span class="pdp-main__offer-copy">
-							<strong><?php esc_html_e( 'Extra 10% off on prepaid orders', 'genzee-jewels' ); ?></strong>
-							<small><?php
-							printf(
-								/* translators: %s: coupon code */
-								esc_html__( 'Code: %s', 'genzee-jewels' ),
-								'<b>GENZ10</b>'
-							);
-							?></small>
+							<strong><?php esc_html_e( 'Pairs easily with everyday outfits', 'genzee-jewels' ); ?></strong>
+							<small><?php esc_html_e( 'Use the cart and checkout pages for real coupons, shipping, and payment details.', 'genzee-jewels' ); ?></small>
 						</span>
-						<button type="button" class="pdp-main__offer-chip"><?php esc_html_e( 'Apply', 'genzee-jewels' ); ?></button>
 					</li>
 					<li class="pdp-main__offer">
-						<span class="pdp-main__offer-icon" aria-hidden="true">🎁</span>
+						<span class="pdp-main__offer-icon" aria-hidden="true">*</span>
 						<span class="pdp-main__offer-copy">
-							<strong><?php esc_html_e( 'FREE nose pin on orders above ₹799', 'genzee-jewels' ); ?></strong>
+							<strong><?php esc_html_e( 'Giftable styling', 'genzee-jewels' ); ?></strong>
+							<small><?php esc_html_e( 'Add a note at checkout if the store has order notes enabled.', 'genzee-jewels' ); ?></small>
 						</span>
-						<button type="button" class="pdp-main__offer-chip"><?php esc_html_e( 'Apply', 'genzee-jewels' ); ?></button>
-					</li>
-					<li class="pdp-main__offer">
-						<span class="pdp-main__offer-icon" aria-hidden="true">💝</span>
-						<span class="pdp-main__offer-copy">
-							<strong><?php esc_html_e( 'Buy 2 sets, get 3rd FREE', 'genzee-jewels' ); ?></strong>
-							<small><?php
-							printf(
-								/* translators: %s: coupon code */
-								esc_html__( 'Code: %s', 'genzee-jewels' ),
-								'<b>COMBO3</b>'
-							);
-							?></small>
-						</span>
-						<button type="button" class="pdp-main__offer-chip"><?php esc_html_e( 'Apply', 'genzee-jewels' ); ?></button>
 					</li>
 				</ul>
 			</section>
-
 			<section class="pdp-main__delivery" aria-labelledby="pdp-delivery-title">
 				<div class="pdp-main__delivery-head">
 					<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M1 3h15v13H1zM16 8h4l3 4v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
 					<h2 class="pdp-main__panel-title pdp-main__panel-title--dark" id="pdp-delivery-title"><?php esc_html_e( 'Delivery & Returns', 'genzee-jewels' ); ?></h2>
 				</div>
-				<div class="pdp-main__pincode" role="group" aria-label="<?php esc_attr_e( 'PIN code check', 'genzee-jewels' ); ?>">
-					<input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="6" placeholder="<?php esc_attr_e( 'Enter PIN code', 'genzee-jewels' ); ?>" aria-label="<?php esc_attr_e( 'Enter PIN code', 'genzee-jewels' ); ?>">
-					<button type="button"><?php esc_html_e( 'Check', 'genzee-jewels' ); ?></button>
-				</div>
+				<p class="pdp-main__delivery-note">
+					<?php esc_html_e( 'Shipping availability, payment methods, and return details are confirmed at checkout or in store policy pages.', 'genzee-jewels' ); ?>
+				</p>
 				<ul class="pdp-main__delivery-list">
-					<li><?php esc_html_e( 'Ships within 24 hrs', 'genzee-jewels' ); ?></li>
-					<li><?php esc_html_e( 'COD available', 'genzee-jewels' ); ?></li>
-					<li><?php esc_html_e( '7-day easy returns', 'genzee-jewels' ); ?></li>
+					<li><?php esc_html_e( 'Shipping calculated at checkout', 'genzee-jewels' ); ?></li>
+					<li><?php esc_html_e( 'Available payment methods shown at checkout', 'genzee-jewels' ); ?></li>
+					<li><?php esc_html_e( 'Return details follow the store policy', 'genzee-jewels' ); ?></li>
 				</ul>
 			</section>
 		</aside>
@@ -521,7 +492,7 @@ if ( $product->is_type( 'simple' ) && $product->is_purchasable() && $product->is
 				<div class="pdp-bundle__head">
 					<div>
 						<p class="pdp-bundle__eyebrow"><?php esc_html_e( 'Complete the Look', 'genzee-jewels' ); ?></p>
-						<h2 class="pdp-bundle__title" id="pdp-bundle-title"><?php esc_html_e( 'Bundle picks for this style', 'genzee-jewels' ); ?></h2>
+						<h2 class="pdp-bundle__title" id="pdp-bundle-title"><?php esc_html_e( 'Complete-the-look picks', 'genzee-jewels' ); ?></h2>
 					</div>
 				</div>
 
@@ -573,7 +544,7 @@ if ( $product->is_type( 'simple' ) && $product->is_purchasable() && $product->is
 							data-pdp-bundle-submit
 							<?php disabled( ! $bundle_can_add_to_cart ); ?>
 						>
-							<span><?php echo esc_html( $bundle_can_add_to_cart ? __( 'Add bundle to cart', 'genzee-jewels' ) : __( 'Bundle unavailable', 'genzee-jewels' ) ); ?></span>
+							<span><?php echo esc_html( $bundle_can_add_to_cart ? __( 'Add all to cart', 'genzee-jewels' ) : __( 'Items unavailable', 'genzee-jewels' ) ); ?></span>
 							<strong><?php echo wp_kses_post( wc_price( $bundle_total ) ); ?></strong>
 							<?php if ( $bundle_save > 0 ) : ?>
 								<small>

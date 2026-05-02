@@ -152,6 +152,10 @@ foreach ( $archive_preserve_keys as $archive_pkey ) {
 	<div class="archive-toolbar__chips no-scrollbar" role="list" aria-label="<?php esc_attr_e( 'Filter chips', 'genzee-jewels' ); ?>">
 		<?php foreach ( $archive_chips as $archive_chip ) : ?>
 			<?php
+			if ( 'placeholder' === $archive_chip['type'] ) {
+				continue;
+			}
+
 			$archive_chip_classes = 'archive-chip';
 
 			if ( ! empty( $archive_chip['active'] ) ) {
@@ -160,10 +164,6 @@ foreach ( $archive_preserve_keys as $archive_pkey ) {
 
 			if ( ! empty( $archive_chip['accent'] ) ) {
 				$archive_chip_classes .= ' archive-chip--accent';
-			}
-
-			if ( 'placeholder' === $archive_chip['type'] ) {
-				$archive_chip_classes .= ' archive-chip--disabled';
 			}
 			?>
 

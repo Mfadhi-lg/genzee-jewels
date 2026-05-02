@@ -3,7 +3,7 @@
  * My Account page shell — editorial layout.
  *
  * @package genzee-jewels
- * @version 3.5.0
+ * @version 9.4.0
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -46,18 +46,18 @@ if ( $genzee_account_user instanceof WP_User && $genzee_account_user->exists() )
 
 				<div class="acct-sidebar__care">
 					<p class="acct-sidebar__care-eyebrow"><?php esc_html_e( 'Need help?', 'genzee-jewels' ); ?></p>
-					<p class="acct-sidebar__care-title"><?php esc_html_e( 'Care + Returns', 'genzee-jewels' ); ?></p>
-					<p class="acct-sidebar__care-copy"><?php esc_html_e( '7-day easy returns. We\'ve got you covered.', 'genzee-jewels' ); ?></p>
+					<p class="acct-sidebar__care-title"><?php esc_html_e( 'Care + Policies', 'genzee-jewels' ); ?></p>
+					<p class="acct-sidebar__care-copy"><?php esc_html_e( 'Order and policy details appear in your account and store policy pages.', 'genzee-jewels' ); ?></p>
 				</div>
 
 			</aside>
 
 			<!-- ── Main content ──────────────────────────── -->
-			<main class="acct-main" id="acct-main-content">
+			<section class="acct-main" id="acct-main-content" aria-label="<?php esc_attr_e( 'Account content', 'genzee-jewels' ); ?>">
 				<div class="woocommerce-MyAccount-content">
 					<?php do_action( 'woocommerce_account_content' ); ?>
 				</div>
-			</main>
+			</section>
 
 		</div>
 

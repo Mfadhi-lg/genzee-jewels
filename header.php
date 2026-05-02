@@ -10,6 +10,7 @@
 $genzee_cart_count  = 0;
 $genzee_cart_url    = home_url( '/cart/' );
 $genzee_account_url  = home_url( '/my-account/' );
+$genzee_shop_url     = home_url( '/shop/' );
 $genzee_wishlist_url = function_exists( 'genzee_jewels_get_wishlist_page_url' ) ? genzee_jewels_get_wishlist_page_url() : home_url( '/wishlist/' );
 if ( ! $genzee_wishlist_url ) {
 	$genzee_wishlist_url = home_url( '/wishlist/' );
@@ -21,6 +22,9 @@ if ( class_exists( 'WooCommerce' ) ) {
 	}
 	if ( function_exists( 'wc_get_cart_url' ) ) {
 		$genzee_cart_url = wc_get_cart_url();
+	}
+	if ( function_exists( 'wc_get_page_permalink' ) ) {
+		$genzee_shop_url = wc_get_page_permalink( 'shop' );
 	}
 	if ( function_exists( 'wc_get_page_id' ) ) {
 		$account_page_id = wc_get_page_id( 'myaccount' );
@@ -57,10 +61,10 @@ $genzee_is_checkout = function_exists( 'is_checkout' ) && is_checkout();
 		<div class="announcement-bar__track" aria-hidden="true">
 			<?php
 			$announcements = array(
-				'⚡ FLAT 50% OFF SITEWIDE &mdash; CODE: <strong>GENZ50</strong>',
-				'🚚 FREE SHIPPING OVER ₹499',
-				'💝 BUY 2 GET 1 FREE ON ALL SETS',
-				'✨ COD AVAILABLE',
+				__( 'New drops are live', 'genzee-jewels' ),
+				__( 'Trendy fashion jewellery for everyday styling', 'genzee-jewels' ),
+				__( 'Cute, giftable packaging', 'genzee-jewels' ),
+				__( 'Easy checkout with WooCommerce', 'genzee-jewels' ),
 			);
 			// Render twice for seamless infinite marquee loop.
 			for ( $i = 0; $i < 2; $i++ ) :
@@ -76,7 +80,7 @@ $genzee_is_checkout = function_exists( 'is_checkout' ) && is_checkout();
 			?>
 		</div>
 		<p class="screen-reader-text">
-			<?php esc_html_e( 'Flat 50% off sitewide with code GENZ50. Free shipping over ₹499. Buy 2 get 1 free on all sets. Cash on delivery available.', 'genzee-jewels' ); ?>
+			<?php esc_html_e( 'New drops, trendy fashion jewellery, giftable packaging, and WooCommerce checkout.', 'genzee-jewels' ); ?>
 		</p>
 	</div>
 
@@ -120,14 +124,17 @@ $genzee_is_checkout = function_exists( 'is_checkout' ) && is_checkout();
 				} else {
 					// Fallback nav when no menu is assigned in WP admin.
 					$fallback_items = array(
-						array( 'label' => 'Home',        'url' => home_url( '/' ) ),
-						array( 'label' => 'Shop',        'url' => home_url( '/shop/' ) ),
-						array( 'label' => 'Bestsellers', 'url' => home_url( '/bestsellers/' ) ),
-						array( 'label' => 'Under ₹299',  'url' => home_url( '/under-299/' ), 'hot' => true ),
-						array( 'label' => 'Sets',        'url' => home_url( '/sets/' ) ),
-						array( 'label' => 'Lookbook',    'url' => home_url( '/lookbook/' ) ),
-						array( 'label' => 'About',       'url' => home_url( '/about/' ) ),
+						array( 'label' => 'Home', 'url' => home_url( '/' ) ),
+						array( 'label' => 'Shop', 'url' => $genzee_shop_url ),
 					);
+					$lookbook_page = get_page_by_path( 'lookbook' );
+					$about_page    = get_page_by_path( 'about' );
+					if ( $lookbook_page instanceof WP_Post ) {
+						$fallback_items[] = array( 'label' => 'Lookbook', 'url' => get_permalink( $lookbook_page ) );
+					}
+					if ( $about_page instanceof WP_Post ) {
+						$fallback_items[] = array( 'label' => 'About', 'url' => get_permalink( $about_page ) );
+					}
 					echo '<ul class="nav-menu nav-menu--primary">';
 					foreach ( $fallback_items as $item ) {
 						$extra = ! empty( $item['hot'] ) ? ' menu-item--hot' : '';

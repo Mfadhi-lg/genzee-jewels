@@ -161,7 +161,7 @@ body.woocommerce-checkout .site-footer--checkout .site-footer__copyright {
 .genzee-coupon-row svg,
 .genzee-order-notes svg,
 .genzee-order-summary-panel__hint svg,
-.trust-badge svg {
+.checkout-trust-badge svg {
   fill: none;
   stroke: currentColor;
   stroke-linecap: round;
@@ -974,7 +974,7 @@ table.woocommerce-checkout-review-order-table .order-total small {
   background: #f8fafc;
 }
 
-.trust-badge {
+.checkout-trust-badge {
   display: flex;
   align-items: center;
   gap: 9px;
@@ -984,7 +984,7 @@ table.woocommerce-checkout-review-order-table .order-total small {
   line-height: 1.35;
 }
 
-.trust-badge svg {
+.checkout-trust-badge svg {
   flex: 0 0 auto;
   width: 15px;
   height: 15px;

@@ -3,7 +3,7 @@
  * My Account — Dashboard.
  *
  * @package genzee-jewels
- * @version 4.4.0
+ * @version 9.4.0
  */
 
 defined( 'ABSPATH' ) || exit;

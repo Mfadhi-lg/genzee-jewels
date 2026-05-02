@@ -26,44 +26,50 @@ if ( class_exists( 'WooCommerce' ) && function_exists( 'wc_get_page_id' ) ) {
 
 $footer_is_checkout = function_exists( 'is_checkout' ) && is_checkout();
 
+$footer_get_page_url = static function ( $slug ) {
+	$page = get_page_by_path( $slug );
+	return $page instanceof WP_Post ? get_permalink( $page ) : '';
+};
+
+$footer_about_url   = $footer_get_page_url( 'about' );
+$footer_contact_url = $footer_get_page_url( 'contact' );
+$footer_terms_url   = $footer_get_page_url( 'terms' );
+$footer_privacy_url = get_privacy_policy_url();
+
 $footer_columns = array(
 	array(
 		'title' => __( 'Shop', 'genzee-jewels' ),
 		'links' => array(
-			array( 'label' => __( 'New Drops', 'genzee-jewels' ), 'url' => $footer_shop_url ),
-			array( 'label' => __( 'Bestsellers', 'genzee-jewels' ), 'url' => $footer_shop_url ),
-			array( 'label' => __( 'Under ₹299', 'genzee-jewels' ), 'url' => $footer_shop_url ),
-			array( 'label' => __( 'Sets & Combos', 'genzee-jewels' ), 'url' => home_url( '/product-category/sets/' ) ),
-			array( 'label' => __( 'Sale', 'genzee-jewels' ), 'url' => $footer_shop_url ),
+			array( 'label' => __( 'New Drops', 'genzee-jewels' ), 'url' => add_query_arg( 'orderby', 'date', $footer_shop_url ) ),
+			array( 'label' => __( 'All Jewellery', 'genzee-jewels' ), 'url' => $footer_shop_url ),
 		),
 	),
 	array(
 		'title' => __( 'Help', 'genzee-jewels' ),
-		'links' => array(
-			array( 'label' => __( 'Track Order', 'genzee-jewels' ), 'url' => $footer_account_url ),
-			array( 'label' => __( 'Shipping', 'genzee-jewels' ), 'url' => home_url( '/shipping/' ) ),
-			array( 'label' => __( 'Returns', 'genzee-jewels' ), 'url' => home_url( '/returns/' ) ),
-			array( 'label' => __( 'Size Guide', 'genzee-jewels' ), 'url' => home_url( '/size-guide/' ) ),
-			array( 'label' => __( 'Contact', 'genzee-jewels' ), 'url' => home_url( '/contact/' ) ),
+		'links' => array_filter(
+			array(
+				array( 'label' => __( 'Track Order', 'genzee-jewels' ), 'url' => $footer_account_url ),
+				array( 'label' => __( 'My Account', 'genzee-jewels' ), 'url' => $footer_account_url ),
+				$footer_contact_url ? array( 'label' => __( 'Contact', 'genzee-jewels' ), 'url' => $footer_contact_url ) : null,
+			)
 		),
 	),
 	array(
 		'title' => __( 'Company', 'genzee-jewels' ),
-		'links' => array(
-			array( 'label' => __( 'About', 'genzee-jewels' ), 'url' => home_url( '/about/' ) ),
-			array( 'label' => __( 'Careers', 'genzee-jewels' ), 'url' => home_url( '/careers/' ) ),
-			array( 'label' => __( 'Sustainability', 'genzee-jewels' ), 'url' => home_url( '/sustainability/' ) ),
-			array( 'label' => __( 'Press', 'genzee-jewels' ), 'url' => home_url( '/press/' ) ),
-			array( 'label' => __( 'Wholesale', 'genzee-jewels' ), 'url' => home_url( '/wholesale/' ) ),
+		'links' => array_filter(
+			array(
+				$footer_about_url ? array( 'label' => __( 'About', 'genzee-jewels' ), 'url' => $footer_about_url ) : null,
+			)
 		),
 	),
 );
 
 $footer_socials = array( 'IG', 'TT', 'YT', 'PN' );
-$footer_legal_links = array(
-	array( 'label' => __( 'Privacy', 'genzee-jewels' ), 'url' => home_url( '/privacy-policy/' ) ),
-	array( 'label' => __( 'Terms', 'genzee-jewels' ), 'url' => home_url( '/terms/' ) ),
-	array( 'label' => __( 'Cookies', 'genzee-jewels' ), 'url' => home_url( '/cookies/' ) ),
+$footer_legal_links = array_filter(
+	array(
+		$footer_privacy_url ? array( 'label' => __( 'Privacy', 'genzee-jewels' ), 'url' => $footer_privacy_url ) : null,
+		$footer_terms_url ? array( 'label' => __( 'Terms', 'genzee-jewels' ), 'url' => $footer_terms_url ) : null,
+	)
 );
 ?>
 </main>
@@ -77,7 +83,7 @@ $footer_legal_links = array(
 					<?php echo esc_html( get_bloginfo( 'name' ) ); ?><span class="site-footer__brand-dot" aria-hidden="true">.</span>
 				</a>
 				<p class="site-footer__brand-copy">
-					<?php esc_html_e( 'Jewelry that slaps. Everything under ₹499. Shipped fast, wrapped in pink, designed to feel like a treat.', 'genzee-jewels' ); ?>
+					<?php esc_html_e( 'Trendy fashion jewellery with playful styling, cute packaging, and prices made for easy outfit upgrades.', 'genzee-jewels' ); ?>
 				</p>
 				<ul class="site-footer__socials" aria-label="<?php esc_attr_e( 'Social channels', 'genzee-jewels' ); ?>">
 					<?php foreach ( $footer_socials as $footer_social ) : ?>
@@ -88,6 +94,7 @@ $footer_legal_links = array(
 
 			<div class="site-footer__columns">
 				<?php foreach ( $footer_columns as $footer_column ) : ?>
+					<?php if ( empty( $footer_column['links'] ) ) { continue; } ?>
 				<div class="site-footer__column">
 					<h2 class="site-footer__heading"><?php echo esc_html( $footer_column['title'] ); ?></h2>
 					<ul class="site-footer__links">
@@ -126,6 +133,7 @@ $footer_legal_links = array(
 				<?php esc_html_e( 'All rights reserved.', 'genzee-jewels' ); ?>
 			</p>
 			<?php if ( ! $footer_is_checkout ) : ?>
+				<?php if ( ! empty( $footer_legal_links ) ) : ?>
 				<ul class="site-footer__legal">
 					<?php foreach ( $footer_legal_links as $footer_legal_link ) : ?>
 					<li>
@@ -135,6 +143,7 @@ $footer_legal_links = array(
 					</li>
 					<?php endforeach; ?>
 				</ul>
+				<?php endif; ?>
 			<?php endif; ?>
 		</div>
 	</div>

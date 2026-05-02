@@ -5,6 +5,7 @@
  * Handles the shop archive and product taxonomy archives using the theme's
  * shared product card component and archive-specific section partials.
  *
+ * @version 9.4.0
  * @package genzee-jewels
  */
 

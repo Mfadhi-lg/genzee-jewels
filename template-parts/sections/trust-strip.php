@@ -1,8 +1,6 @@
 <?php
 /**
- * Trust Strip — four brand promise badges.
- *
- * Matches home.jsx trust section: white card, 4-column badge grid.
+ * Trust Strip - brand and checkout-safe badges.
  *
  * @package genzee-jewels
  */
@@ -11,28 +9,28 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$badges = [
-	[
-		'icon'  => '🚚',
-		'title' => __( 'Free Shipping', 'genzee-jewels' ),
-		'sub'   => __( 'on orders over ₹499', 'genzee-jewels' ),
-	],
-	[
-		'icon'  => '💝',
-		'title' => __( 'Pink Packaging', 'genzee-jewels' ),
-		'sub'   => __( 'giftable by default', 'genzee-jewels' ),
-	],
-	[
-		'icon'  => '↩️',
-		'title' => __( '7-day Returns', 'genzee-jewels' ),
-		'sub'   => __( 'no-questions-asked', 'genzee-jewels' ),
-	],
-	[
-		'icon'  => '💸',
-		'title' => __( 'COD Available', 'genzee-jewels' ),
-		'sub'   => __( 'pay when it arrives', 'genzee-jewels' ),
-	],
-];
+$badges = array(
+	array(
+		'icon'  => '*',
+		'title' => __( 'Shipping', 'genzee-jewels' ),
+		'sub'   => __( 'calculated at checkout', 'genzee-jewels' ),
+	),
+	array(
+		'icon'  => '*',
+		'title' => __( 'Giftable Packaging', 'genzee-jewels' ),
+		'sub'   => __( 'cute presentation focus', 'genzee-jewels' ),
+	),
+	array(
+		'icon'  => '*',
+		'title' => __( 'Store Policies', 'genzee-jewels' ),
+		'sub'   => __( 'shown on policy pages', 'genzee-jewels' ),
+	),
+	array(
+		'icon'  => '*',
+		'title' => __( 'Payment Options', 'genzee-jewels' ),
+		'sub'   => __( 'shown at checkout', 'genzee-jewels' ),
+	),
+);
 ?>
 <section class="section-trust" aria-label="<?php esc_attr_e( 'Why shop with Genzee', 'genzee-jewels' ); ?>">
 	<div class="trust-wrap">

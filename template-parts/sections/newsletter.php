@@ -2,8 +2,7 @@
 /**
  * Section: Newsletter CTA
  *
- * Static form — no backend email handling yet.
- * Replace action="#" with the email service endpoint when ready.
+ * Static shop CTA until a real email provider is connected.
  *
  * @package genzee-jewels
  */
@@ -11,6 +10,10 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+$newsletter_shop_url = class_exists( 'WooCommerce' ) && function_exists( 'wc_get_page_permalink' )
+	? wc_get_page_permalink( 'shop' )
+	: home_url( '/shop/' );
 ?>
 
 <section class="section-newsletter">
@@ -20,44 +23,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div class="newsletter-orb newsletter-orb--2" aria-hidden="true"></div>
 
 			<div class="newsletter-content">
-				<span class="newsletter-eyebrow">✉️ <?php esc_html_e( 'JOIN THE GROUP CHAT', 'genzee-jewels' ); ?></span>
+				<span class="newsletter-eyebrow"><?php esc_html_e( 'JOIN THE GROUP CHAT', 'genzee-jewels' ); ?></span>
 
 				<h2 class="newsletter-heading">
-					<?php esc_html_e( 'Get', 'genzee-jewels' ); ?>
-					<span class="newsletter-heading__accent"><?php esc_html_e( ' 15% off', 'genzee-jewels' ); ?></span>
-					<?php esc_html_e( ' + early access', 'genzee-jewels' ); ?>
+					<?php esc_html_e( 'Fresh', 'genzee-jewels' ); ?>
+					<span class="newsletter-heading__accent"><?php esc_html_e( ' drops', 'genzee-jewels' ); ?></span>
+					<?php esc_html_e( ' for your next stack', 'genzee-jewels' ); ?>
 				</h2>
 
 				<p class="newsletter-sub">
-					<?php esc_html_e( 'Weekly drops. Exclusive codes. No spam, promise 🤞', 'genzee-jewels' ); ?>
+					<?php esc_html_e( 'Browse the latest Genzee pieces and build an easy everyday edit.', 'genzee-jewels' ); ?>
 				</p>
 
-				<form
-					class="newsletter-form"
-					action="#"
-					method="post"
-					novalidate
-					aria-label="<?php esc_attr_e( 'Newsletter sign-up', 'genzee-jewels' ); ?>"
-				>
-					<label for="gz-newsletter-email" class="screen-reader-text">
-						<?php esc_html_e( 'Your email address', 'genzee-jewels' ); ?>
-					</label>
-					<input
-						id="gz-newsletter-email"
-						class="newsletter-form__input"
-						type="email"
-						name="gz_email"
-						placeholder="<?php esc_attr_e( 'your@email.com', 'genzee-jewels' ); ?>"
-						required
-						autocomplete="email"
-					>
-					<button class="newsletter-form__btn" type="submit">
-						<?php esc_html_e( 'Gimme 15%', 'genzee-jewels' ); ?>
+				<div class="newsletter-form" aria-label="<?php esc_attr_e( 'Shop latest products', 'genzee-jewels' ); ?>">
+					<a class="newsletter-form__btn" href="<?php echo esc_url( $newsletter_shop_url ); ?>">
+						<?php esc_html_e( 'Shop new drops', 'genzee-jewels' ); ?>
 						<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true" focusable="false">
 							<path d="M5 12L19 12M13 6L19 12L13 18"/>
 						</svg>
-					</button>
-				</form>
+					</a>
+				</div>
 			</div>
 		</div>
 	</div>

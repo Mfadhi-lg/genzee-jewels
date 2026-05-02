@@ -55,13 +55,12 @@ if ( function_exists( 'wc_get_page_permalink' ) ) {
 	$genzee_shop_url = wc_get_page_permalink( 'shop' );
 }
 
-$genzee_free_threshold = 499;
-$genzee_to_free        = max( 0.0, $genzee_free_threshold - $genzee_subtotal_raw );
-$genzee_progress       = (int) min( 100, $genzee_free_threshold > 0 ? ( $genzee_subtotal_raw / $genzee_free_threshold ) * 100 : 0 );
 $genzee_cart_empty     = empty( $genzee_cart_items );
 
-if ( 0.0 === $genzee_to_free && ! $genzee_cart_empty ) {
-	$genzee_shipping = __( 'FREE', 'genzee-jewels' );
+if ( $genzee_wc_active && function_exists( 'WC' ) && WC()->cart && WC()->cart->needs_shipping() ) {
+	$genzee_shipping = WC()->cart->get_cart_shipping_total();
+} elseif ( ! $genzee_cart_empty ) {
+	$genzee_shipping = __( 'No shipping needed', 'genzee-jewels' );
 } else {
 	$genzee_shipping = __( 'Calculated at checkout', 'genzee-jewels' );
 }
@@ -153,78 +152,15 @@ if ( $genzee_wc_active && function_exists( 'wc_get_products' ) ) {
 	}
 }
 
-$genzee_fallback_cross_sells = array(
-	array(
-		'id'    => 'cart-demo-199',
-		'name'  => __( 'Cherry Studs', 'genzee-jewels' ),
-		'price' => 199,
-		'mrp'   => 399,
-		'color' => '#FF2D6F',
-		'link'  => $genzee_shop_url,
-	),
-	array(
-		'id'    => 'cart-demo-349',
-		'name'  => __( 'Chrome Hoops', 'genzee-jewels' ),
-		'price' => 349,
-		'mrp'   => 699,
-		'color' => '#C9B6FF',
-		'link'  => $genzee_shop_url,
-	),
-	array(
-		'id'    => 'cart-demo-449',
-		'name'  => __( 'Star Choker', 'genzee-jewels' ),
-		'price' => 449,
-		'mrp'   => 899,
-		'color' => '#FFE14A',
-		'link'  => $genzee_shop_url,
-	),
-	array(
-		'id'    => 'cart-demo-399',
-		'name'  => __( 'Dainty Chain', 'genzee-jewels' ),
-		'price' => 399,
-		'mrp'   => 799,
-		'color' => '#B8F2C9',
-		'link'  => $genzee_shop_url,
-	),
-);
-
-foreach ( $genzee_fallback_cross_sells as $genzee_fallback_cross_sell ) {
-	if ( count( $genzee_cross_sell_tiles ) >= 4 ) {
-		break;
-	}
-
-	$genzee_cross_sell_tiles[] = array( 'demo' => $genzee_fallback_cross_sell );
-}
 ?>
 
 <div id="cart-drawer-inner" class="genzee-cart-drawer-content">
 	<?php if ( $genzee_wc_active ) : ?>
 
 		<div class="cart-drawer__ship-bar" id="cart-drawer-ship-bar">
-			<?php if ( $genzee_to_free > 0 ) : ?>
-				<p class="cart-drawer__ship-msg" id="cart-drawer-ship-msg">
-					<?php
-					echo wp_kses_post(
-						sprintf(
-							/* translators: %s: remaining amount, wrapped in <strong> */
-							__( 'Add %s more for FREE shipping', 'genzee-jewels' ),
-							'<strong>' . wp_kses_post( wc_price( $genzee_to_free ) ) . '</strong>'
-						)
-					);
-					?>
-				</p>
-			<?php else : ?>
-				<p class="cart-drawer__ship-msg cart-drawer__ship-msg--unlocked" id="cart-drawer-ship-msg">
-					<?php esc_html_e( 'FREE shipping unlocked!', 'genzee-jewels' ); ?>
-				</p>
-			<?php endif; ?>
-			<progress
-				class="cart-drawer__progress-track"
-				value="<?php echo esc_attr( $genzee_progress ); ?>"
-				max="100"
-				aria-label="<?php esc_attr_e( 'Free shipping progress', 'genzee-jewels' ); ?>"
-				id="cart-drawer-progress"
-			></progress>
+			<p class="cart-drawer__ship-msg" id="cart-drawer-ship-msg">
+				<?php esc_html_e( 'Shipping, coupons, and payment options are confirmed by WooCommerce at checkout.', 'genzee-jewels' ); ?>
+			</p>
 		</div>
 
 		<div class="cart-drawer__body" id="cart-drawer-body">
@@ -253,7 +189,7 @@ foreach ( $genzee_fallback_cross_sells as $genzee_fallback_cross_sell ) {
 				<?php if ( ! empty( $genzee_cross_sell_tiles ) ) : ?>
 					<div class="cart-drawer__cross-sell-panel" aria-label="<?php esc_attr_e( 'Mini picks', 'genzee-jewels' ); ?>">
 						<p class="cart-drawer__cross-sell-title">
-							<?php esc_html_e( 'Tiny treats under 499', 'genzee-jewels' ); ?>
+							<?php esc_html_e( 'Tiny treats to browse', 'genzee-jewels' ); ?>
 						</p>
 						<div class="cart-drawer__cross-sells">
 							<?php
@@ -388,7 +324,7 @@ foreach ( $genzee_fallback_cross_sells as $genzee_fallback_cross_sell ) {
 
 				</div>
 
-				<div class="cart-drawer__freebie" aria-label="<?php esc_attr_e( 'Freebie offer', 'genzee-jewels' ); ?>">
+				<div class="cart-drawer__freebie" aria-label="<?php esc_attr_e( 'More products to consider', 'genzee-jewels' ); ?>">
 					<div class="cart-drawer__freebie-head">
 						<div class="cart-drawer__freebie-icon" aria-hidden="true">
 							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false">
@@ -401,18 +337,10 @@ foreach ( $genzee_fallback_cross_sells as $genzee_fallback_cross_sell ) {
 						</div>
 						<div>
 							<p class="cart-drawer__freebie-title">
-								<?php esc_html_e( 'Add 1 more item - get a FREE nose pin', 'genzee-jewels' ); ?>
+								<?php esc_html_e( 'More pieces to consider', 'genzee-jewels' ); ?>
 							</p>
 							<p class="cart-drawer__freebie-copy">
-								<?php
-								echo wp_kses_post(
-									sprintf(
-										/* translators: %s: freebie value */
-										__( 'Valued at %s - auto-added at checkout', 'genzee-jewels' ),
-										wc_price( 149 )
-									)
-								);
-								?>
+								<?php esc_html_e( 'Browse real products from the catalog before checkout.', 'genzee-jewels' ); ?>
 							</p>
 						</div>
 					</div>
@@ -447,16 +375,6 @@ foreach ( $genzee_fallback_cross_sells as $genzee_fallback_cross_sell ) {
 							<?php esc_html_e( 'Apply', 'genzee-jewels' ); ?>
 						</button>
 					</div>
-					<div class="cart-drawer__coupon-chips" aria-label="<?php esc_attr_e( 'Suggested coupon codes', 'genzee-jewels' ); ?>">
-						<?php
-						$genzee_coupon_chips = array( 'GENZ50', 'FIRST15', 'COMBO3' );
-						foreach ( $genzee_coupon_chips as $genzee_coupon_chip ) :
-						?>
-							<button type="button" class="cart-drawer__coupon-chip">
-								<?php echo esc_html( $genzee_coupon_chip ); ?>
-							</button>
-						<?php endforeach; ?>
-					</div>
 					<?php wp_nonce_field( 'woocommerce-cart', 'woocommerce-cart-nonce' ); ?>
 				</form>
 
@@ -480,8 +398,8 @@ foreach ( $genzee_fallback_cross_sells as $genzee_fallback_cross_sell ) {
 				</div>
 				<div class="cart-drawer__summary-row">
 					<span><?php esc_html_e( 'Shipping', 'genzee-jewels' ); ?></span>
-					<span class="cart-drawer__summary-val<?php echo 0.0 === $genzee_to_free ? esc_attr( ' cart-drawer__summary-val--success' ) : ''; ?>">
-						<?php echo esc_html( $genzee_shipping ); ?>
+					<span class="cart-drawer__summary-val">
+						<?php echo wp_kses_post( $genzee_shipping ); ?>
 					</span>
 				</div>
 				<?php if ( $genzee_discount_raw > 0 ) : ?>
@@ -543,7 +461,10 @@ foreach ( $genzee_fallback_cross_sells as $genzee_fallback_cross_sell ) {
 				aria-label="<?php esc_attr_e( 'Accepted payment methods', 'genzee-jewels' ); ?>"
 			>
 				<?php
-				$genzee_payment_methods = array( 'UPI', 'VISA', 'MC', 'COD' );
+				$genzee_payment_methods = array(
+					__( 'Secure checkout', 'genzee-jewels' ),
+					__( 'Payment options at checkout', 'genzee-jewels' ),
+				);
 				foreach ( $genzee_payment_methods as $genzee_pm ) :
 				?>
 				<li><?php echo esc_html( $genzee_pm ); ?></li>

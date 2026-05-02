@@ -135,42 +135,24 @@ $iz_view_all_url = class_exists( 'WooCommerce' )
 
 			<div class="impulse-heading-block">
 				<span class="impulse-eyebrow">
-					<?php esc_html_e( '⚡ LIMITED DROP', 'genzee-jewels' ); ?>
+					<?php esc_html_e( 'TRENDING EDIT', 'genzee-jewels' ); ?>
 				</span>
 				<h2 class="impulse-heading">
 					<?php esc_html_e( 'Under ₹299.', 'genzee-jewels' ); ?><br>
 					<em><?php esc_html_e( 'no guilt.', 'genzee-jewels' ); ?></em>
 				</h2>
 				<p class="impulse-sub">
-					<?php esc_html_e( 'Add to cart before your wallet catches on. Trending jewellery under ₹299 — because you deserve it, always.', 'genzee-jewels' ); ?>
+					<?php esc_html_e( 'Browse impulse-friendly jewellery picks for quick everyday styling updates.', 'genzee-jewels' ); ?>
 				</p>
 			</div><!-- /.impulse-heading-block -->
 
-			<!-- Countdown timer — driven by main.js initCountdowns() -->
 			<div
 				class="impulse-timer"
-				aria-label="<?php esc_attr_e( 'Deal ends in', 'genzee-jewels' ); ?>">
+				aria-label="<?php esc_attr_e( 'Style note', 'genzee-jewels' ); ?>">
 
-				<span class="impulse-timer__label" aria-hidden="true">
-					<?php esc_html_e( 'DEAL ENDS IN', 'genzee-jewels' ); ?>
+				<span class="impulse-timer__label">
+					<?php esc_html_e( 'Easy pieces for quick outfit updates', 'genzee-jewels' ); ?>
 				</span>
-
-				<div class="iz-countdown" data-countdown="14400" aria-live="polite">
-					<div class="iz-countdown__unit">
-						<span class="iz-countdown__val js-countdown-h">04</span>
-						<span class="iz-countdown__lbl" aria-hidden="true">HRS</span>
-					</div>
-					<span class="iz-countdown__sep" aria-hidden="true">:</span>
-					<div class="iz-countdown__unit">
-						<span class="iz-countdown__val js-countdown-m">00</span>
-						<span class="iz-countdown__lbl" aria-hidden="true">MIN</span>
-					</div>
-					<span class="iz-countdown__sep" aria-hidden="true">:</span>
-					<div class="iz-countdown__unit">
-						<span class="iz-countdown__val js-countdown-s">00</span>
-						<span class="iz-countdown__lbl" aria-hidden="true">SEC</span>
-					</div>
-				</div><!-- /.iz-countdown -->
 
 			</div><!-- /.impulse-timer -->
 
