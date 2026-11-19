@@ -1,0 +1,74 @@
+services:
+  db:
+    image: mariadb:11.4
+    restart: unless-stopped
+    environment:
+      MARIADB_DATABASE: wordpress
+      MARIADB_USER: wordpress
+      MARIADB_PASSWORD: wordpress
+      MARIADB_ROOT_PASSWORD: root
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  wordpress:
+    image: wordpress:7.1-apache
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8080:80"
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_CONFIG_EXTRA: |
+        define('WP_DEBUG', true);
+        define('WP_DEBUG_DISPLAY', false);
+    volumes:
+      - wordpress_data:/var/www/html
+      - ./wp-content/themes/genzee-prototype:/var/www/html/wp-content/themes/genzee-prototype
+      - ./genzee_playful_commerce_v4_cart_wishlist_fixed.html:/var/www/html/wp-content/themes/genzee-prototype/prototype.html:ro
+
+  wordpress-init:
+    image: wordpress:cli-2.11.0-php8.3
+    user: "0:0"
+    depends_on:
+      wordpress:
+        condition: service_started
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+    volumes:
+      - wordpress_data:/var/www/html
+      - ./wp-content/themes/genzee-prototype:/var/www/html/wp-content/themes/genzee-prototype
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        until wp core version --path=/var/www/html --allow-root >/dev/null 2>&1; do sleep 2; done;
+        if ! wp core is-installed --path=/var/www/html --allow-root >/dev/null 2>&1; then
+          wp core install --path=/var/www/html --url=http://localhost:8080 --title="Genzee Jewels" --admin_user=admin --admin_password=admin --admin_email=admin@genzee.local --skip-email --allow-root;
+        fi;
+        wp core update --path=/var/www/html --allow-root;
+        if ! wp plugin is-installed woocommerce --path=/var/www/html --allow-root >/dev/null 2>&1; then
+          wp plugin install woocommerce --activate --path=/var/www/html --allow-root;
+        else
+          wp plugin activate woocommerce --path=/var/www/html --allow-root;
+        fi;
+        wp theme activate genzee-prototype --path=/var/www/html --allow-root;
+        wp option update blogdescription "Jewels for the plot" --path=/var/www/html --allow-root;
+        mkdir -p /var/www/html/wp-content/uploads;
+        chown -R 33:33 /var/www/html/wp-content/uploads;
+    restart: "no"
+
+volumes:
+  db_data:
+  wordpress_data:

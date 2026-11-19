@@ -1,9 +1,0 @@
-Type,SKU,Name,Published,Is featured?,Visibility in catalog,Short description,Description,Tax status,In stock?,Stock,Regular price,Sale price,Categories,Tags
-simple,GJ-EAR-001,Butter Heart Huggies,1,1,visible,"Chunky heart huggies for stacked everyday looks.","Bright gold-tone heart huggies designed for playful daily styling and easy gifting.",taxable,1,12,599,299,Earrings,"bestseller,local-demo"
-simple,GJ-EAR-002,Cherry Bomb Studs,1,1,visible,"Hot-pink studs with bold Y2K energy.","A compact pop-color earring made for casual outfits, gifting, and impulse buys.",taxable,1,8,399,199,Earrings,"trending,local-demo"
-simple,GJ-NEC-001,Layered Dainty Chain,1,1,visible,"A ready-made layered necklace stack.","Lightweight layered chain necklace that pairs with everyday fits and party looks.",taxable,1,15,799,399,Necklaces,"bestseller,local-demo"
-simple,GJ-NEC-002,Pearl Baby Lariat,1,0,visible,"Soft pearl lariat with a delicate drop.","A dainty necklace with a minimal pearl accent for dressy styling on a budget.",taxable,1,9,599,299,Necklaces,"new,local-demo"
-simple,GJ-RNG-001,Bubble Ring Set (3pc),1,1,visible,"Three stackable rings in one easy set.","A mixed bubble-ring set that works solo or stacked for a louder styling moment.",taxable,1,10,599,249,Rings,"set,local-demo"
-simple,GJ-BRC-001,Paperclip Stack Bracelet,1,0,visible,"Paperclip-link bracelet with easy layering appeal.","A polished bracelet designed to layer well with watches, bangles, and cuffs.",taxable,1,7,649,329,Bracelets,"local-demo"
-simple,GJ-NOS-001,Mini Star Nose Pin,1,0,visible,"Tiny star nose pin for subtle shine.","A simple nose pin with a playful star silhouette made for low-effort everyday styling.",taxable,1,20,249,149,"Nose Pins","local-demo"
-simple,GJ-SET-001,Pastel Party Combo Set,1,1,visible,"Matching earrings and necklace combo set.","A budget-friendly matching set created for gifting, festive outfits, and quick styling.",taxable,1,6,899,499,Sets,"combo,local-demo"
